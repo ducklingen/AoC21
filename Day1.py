@@ -4,12 +4,12 @@ input = AoCHelper.read_input_lines("day1/input1.txt")
 numbers = list(map(int, input))
 
 
-def simpleIncreases(inputNumbers):
-    return sum([inputNumbers[i] < inputNumbers[i+1] for i in range(len(inputNumbers)-1)])
+def simpleIncreases(input_numbers):
+    return sum([input_numbers[i] < input_numbers[i + 1] for i in range(len(input_numbers) - 1)])
 
 
-def rollingSumIncreases(inputNumbers):
-    return sum([inputNumbers[i] < inputNumbers[i+3] for i in range(len(inputNumbers)-3)])
+def rollingSumIncreases(input_numbers):
+    return sum([input_numbers[i] < input_numbers[i + 3] for i in range(len(input_numbers) - 3)])
 
 
 simpleIncreases = simpleIncreases(numbers)
