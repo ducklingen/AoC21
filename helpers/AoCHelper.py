@@ -135,3 +135,13 @@ def split_lines_into_chunks(lines, delimiters):
     chuncks.append(chunk)
 
     return chuncks
+
+
+def combine_lists(lists):
+    res = []
+
+    for l in lists:
+        res += l
+
+    return res
+
