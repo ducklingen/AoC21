@@ -10,10 +10,7 @@ def draw_lines(lines, grid_size, include_diagonals):
     grid = [[0 for j in range(grid_size + 1)] for i in range(grid_size + 1)]
 
     for line in lines:
-        x1 = line[0]
-        y1 = line[1]
-        x2 = line[2]
-        y2 = line[3]
+        x1, y1, x2, y2 = line
 
         if x1 == x2:
             for k in range(min(y1, y2), max(y1, y2) + 1):
