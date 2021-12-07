@@ -31,4 +31,4 @@ print(f"Part one: {part_one_res}")
 part_two_dict = run_simulation(256, fish_dict)
 part_two_res = sum(part_two_dict.values())
 assert part_two_res == 1632146183902
-print(f"Part one: {part_two_res}")
+print(f"Part two: {part_two_res}")
