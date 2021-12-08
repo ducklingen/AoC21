@@ -1,28 +1,25 @@
 from helpers import AoCHelper
 
-input_data = AoCHelper.read_input_lines("day8/input1.txt")
+input_lines = AoCHelper.read_input_lines("day8/input1.txt")
 
 easy_digits_dict = {2: '1', 3: '7', 4: '4', 7: '8'}
 
 number_of_easy_knowns = 0
 sum_of_output = 0
 
-for line in input_data:
-    input, output = line.split('|')
+for line in input_lines:
+    input_data, output_data = line.split(' | ')
 
-    input_values = input.split(' ')
-    output_values = output.split(' ')
+    input_values = input_data.split(' ')
+    output_values = output_data.split(' ')
+
+    # Digit analysis
     input_values.sort(reverse=False, key=len)
-
-    output_number = ''
     one_lines = []
     nine_lines = []
     three_lines = []
 
-    # Digit analysis
     for i in input_values:
-        if i == '':
-            continue
 
         if len(i) == 2:
             one_lines = list(i)
@@ -33,9 +30,10 @@ for line in input_data:
         if len(i) == 6 and min(k in list(i) for k in three_lines) == 1:
             nine_lines = list(i)
 
+    # Identification
+    output_number = ''
+
     for o in output_values:
-        if o == '':
-            continue
 
         if len(o) in easy_digits_dict.keys():
             number_of_easy_knowns += 1
