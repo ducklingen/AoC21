@@ -65,7 +65,11 @@ def group_lines(inputlines):
 
 def extract_numbers_from_line(line):
     pattern = r'((?<!\d)[+-]?)(\d+)'
-    return [int(match.group()) for match in re.finditer(pattern, line)]
+
+    if isinstance(line, str):
+        return [int(match.group()) for match in re.finditer(pattern, line)]
+    else:
+        return [int(match.group()) for match in re.finditer(pattern, line[0])]
 
 
 def extract_numbers(lines):
