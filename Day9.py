@@ -41,6 +41,6 @@ low_points_sum = sum(grid[p[0]][p[1]] + 1 for p in low_points)
 assert low_points_sum == 524
 print(f"Part 1: {low_points_sum}")
 
-basin_product = len(basins[0]) * len(basins[1]) * len(basins[2])
+basin_product = AoCHelper.prod(map(len, basins[:3]))
 assert basin_product == 1235430
 print(f"Part 2: {basin_product}")
