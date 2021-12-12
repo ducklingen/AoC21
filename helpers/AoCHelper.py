@@ -88,6 +88,15 @@ def get_neighbours(i, j, grid, directions=all_directions, immediate_neighbour=Tr
     return neighbours
 
 
+def get_all_coordinates_in_grid(n, m):
+    coordinates = []
+
+    for y in range(m):
+        coordinates += [(x, y) for x in range(n)]
+
+    return coordinates
+
+
 def get_first_in_direction(i, j, grid, i_increment, j_increment, characters_to_skip):
     while 0 <= i + i_increment < len(grid) and 0 <= j + j_increment < len(grid[0]):
         if grid[i + i_increment][j + j_increment] not in characters_to_skip:
