@@ -15,7 +15,7 @@ while True:
     for x, y in product(range(10), range(10)):
         grid[x][y] = grid[x][y] + 1
 
-    while len([(x, y) for x, y in product(range(10), range(10)) if grid[x][y] > 9]) > 0:
+    while any(grid[x][y] > 9 for x, y in product(range(10), range(10))):
         for x, y in product(range(10), range(10)):
             if grid[x][y] > 9:
                 for n, m in all_directions:
@@ -24,7 +24,7 @@ while True:
 
                 grid[x][y] = 0
 
-    flashes_in_step = len([(x, y) for x, y in product(range(10), range(10)) if grid[x][y] == 0])
+    flashes_in_step = sum(grid[x][y] == 0 for x, y in product(range(10), range(10)))
 
     if step <= 100:
         flashes += flashes_in_step
