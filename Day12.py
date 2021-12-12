@@ -1,4 +1,7 @@
 from helpers import AoCHelper
+import time
+
+start_time = time.time()
 
 input_lines = AoCHelper.read_input_lines("day12/input1.txt")
 
@@ -26,16 +29,12 @@ def get_paths(path, edges, easy):
     return new_paths
 
 
-easy_paths = []
-hard_paths = []
-
-for a, b in edges:
-    if a == 'start':
-        easy_paths += get_paths(['start', b], edges, True)
-        hard_paths += get_paths(['start', b], edges, False)
-
+easy_paths = get_paths(['start'], edges, True)
 assert len(easy_paths) == 3421
 print(len(easy_paths))
 
+hard_paths = get_paths(['start'], edges, False)
 assert len(hard_paths) == 84870
 print(len(hard_paths))
+
+print("--- %s seconds ---" % (time.time() - start_time))
