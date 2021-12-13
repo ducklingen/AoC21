@@ -24,23 +24,23 @@ def fold(dots, d, n):
     if d == 'x':
         for x, y in dots:
             if x > n:
-                new_dots.add((x - 2 * (x - n), y))
+                new_dots.add((2 * n - x, y))
             else:
                 new_dots.add((x, y))
 
     if d == 'y':
         for x, y in dots:
             if y > n:
-                new_dots.add((x, y - 2 * (y - n)))
+                new_dots.add((x, 2 * n - y))
             else:
                 new_dots.add((x, y))
 
     return new_dots
 
 
-easy_dots = fold(dots, 'x', 655)
+easy_dots = fold(dots, instructions[0][0], instructions[0][1])
 assert len(easy_dots) == 770
-print(f"Part 1: {len(easy_dots)})")
+print(f"Part 1: {len(easy_dots)}")
 
 
 hard_dots = dots.copy()
