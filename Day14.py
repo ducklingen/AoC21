@@ -17,20 +17,15 @@ for i in range(2, len(input_lines)):
 
 def run_game(game_lenght, instructions, template):
     changes = {pos: [pos[0] + value, value + pos[1]] for pos, value in instructions.items()}
-    pair_counter = Counter()
+    pair_counter = Counter({ins: template.count(ins) for ins in instructions})
     letter_counter = Counter(template)
 
-    for ins in instructions:
-        pair_counter[ins] = template.count(ins)
-
     for n in range(game_lenght):
-        c_new = Counter()
-        letter_counter += {k: sum(value for ins, value in pair_counter.items() if instructions[ins] == k) for k in instructions.values()}
+        letter_counter += {k: sum(value for ins, value in pair_counter.items() if instructions[ins] == k)
+                           for k in instructions.values()}
 
-        for ins in instructions:
-            c_new[ins] += sum(pair_counter[change] for change in changes if ins in changes[change])
-
-        pair_counter = c_new
+        pair_counter = Counter({ins: sum(pair_counter[change] for change in changes if ins in changes[change])
+                                for ins in instructions})
 
     return max(letter_counter.values()) - min(letter_counter.values())
 
