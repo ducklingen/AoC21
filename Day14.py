@@ -25,7 +25,7 @@ def run_game(game_lenght, instructions, template):
 
     for n in range(game_lenght):
         c_new = Counter()
-        letter_counter += {k : sum(pair_counter[ins] for ins in pair_counter.keys() if instructions[ins] == k) for k in instructions.values()}
+        letter_counter += {k : sum(pair_counter[ins] for ins in pair_counter if instructions[ins] == k) for k in instructions.values()}
 
         for ins in instructions:
             c_new[ins] += sum(pair_counter[change] for change in changes if ins in changes[change])
