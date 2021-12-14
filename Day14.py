@@ -16,7 +16,7 @@ for i in range(2, len(input_lines)):
 
 
 def run_game(game_lenght, instructions, template):
-    changes = {pos: [pos[0] + instructions[pos], instructions[pos] + pos[1]] for pos in instructions}
+    changes = {pos: [pos[0] + value, value + pos[1]] for pos, value in instructions.items()}
     pair_counter = Counter()
     letter_counter = Counter(template)
 
@@ -25,7 +25,7 @@ def run_game(game_lenght, instructions, template):
 
     for n in range(game_lenght):
         c_new = Counter()
-        letter_counter += {k : sum(pair_counter[ins] for ins in pair_counter if instructions[ins] == k) for k in instructions.values()}
+        letter_counter += {k: sum(value for ins, value in pair_counter.items() if instructions[ins] == k) for k in instructions.values()}
 
         for ins in instructions:
             c_new[ins] += sum(pair_counter[change] for change in changes if ins in changes[change])
