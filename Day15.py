@@ -8,43 +8,46 @@ start_time = time.time()
 
 input_lines = AoCHelper.read_input_lines("day15/input1.txt")
 
-# grid = [list(map(int, l)) for l in input_lines]
+easy_grid = [list(map(int, l)) for l in input_lines]
 
-grid = []
+hard_grid = []
 
 for i in range(len(input_lines) * 5):
     h_line = []
     for j in range(5):
         h_line += [int(n) + j + (i // len(input_lines)) if int(n) + j + (i // len(input_lines)) <= 9 else int(n) + j + (i // len(input_lines)) - 9 for n in input_lines[i % len(input_lines)]]
 
-    grid.append(h_line)
+    hard_grid.append(h_line)
 
 
-unvisited_nodes = list(product(range(len(grid)), range(len(grid[0]))))
-tentative_nodes = [(0, 0)]
+def find_shortest(grid):
 
-distance = {node: 0 if node == (0,0) else maxsize for node in unvisited_nodes}
+    distance = {node: 0 if node == (0,0) else maxsize for node in product(range(len(grid)), range(len(grid[0])))}
+    tentative_nodes = PriorityQueue()
+    x = y = 0
 
-x = y = 0
+    while not (x == len(grid) - 1 and y == len(grid[0]) - 1):
+        for n, m in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
+            if 0 <= x + n < len(grid) and 0 <= y + m < len(grid[0]):
+                if distance[(x, y)] + grid[x + n][y + m] < distance[(x + n, y + m)]:
+                    distance[(x + n, y + m)] = distance[(x, y)] + grid[x + n][y + m]
+                    tentative_nodes.put((distance[(x + n, y + m)], (x + n, y + m)))
 
-while (len(grid) - 1, len(grid[0]) - 1) in unvisited_nodes:
-    for n, m in [(0,1), (1, 0), (-1, 0), (0, -1)]:
-        if 0 <= x + n < len(grid) and 0 <= y + m < len(grid[0]) and (x + n, y + m) in unvisited_nodes:
-            if distance[(x, y)] + grid[x + n][y + m] < distance[(x + n, y + m)]:
-                distance[(x + n, y + m)] = distance[(x, y)] + grid[x + n][y + m]
-                tentative_nodes.append((x + n, y + m))
+        if not tentative_nodes.empty():
+            new_element = tentative_nodes.get()
+            x, y = new_element[1]
+        else:
+            break
 
-    unvisited_nodes.remove((x, y))
-    tentative_nodes.remove((x, y))
+    return distance[(len(grid) - 1, len(grid[0]) - 1)]
 
-    lowest_value = maxsize
 
-    for i, j in tentative_nodes:
-        if distance[(i, j)] < lowest_value:
-            lowest_value = distance[(i, j)]
-            x = i
-            y = j
+part_one_res = find_shortest(easy_grid)
+assert part_one_res == 592
+print(f"Part 1: {part_one_res}")
 
-print(distance[(len(grid) - 1, len(grid[0]) - 1)])
+part_two_res = find_shortest(hard_grid)
+assert part_two_res == 2897
+print(f"Part 2: {part_two_res}")
 
 print("--- %s seconds ---" % (time.time() - start_time))
