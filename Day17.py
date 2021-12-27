@@ -10,7 +10,7 @@ def get_corners(area):
     return x1, x2, y1, y2
 
 
-def lands_in_target_area(x_vel, y_vel, target):
+def get_trajectory(x_vel, y_vel, target):
     res = False
     x1, x2, y1, y2 = get_corners(target)
     x = y = 0
@@ -36,16 +36,13 @@ start_time = time.time()
 # input = 'target area: x=20..30, y=-10..-5'
 input = 'target area: x=288..330, y=-96..-50'
 x1, x2, y1, y2 = get_corners(input)
-x_lower_limit = math.ceil((-1 + math.sqrt(1 + 8 * x1)) // 2)
 y_vel = y1
 traj_res = []
 valid_traj = set([])
 
 while y_vel <= 100:
-    hits = 0
-    for x_vel in range(x_lower_limit + x2):
-        res, traj = lands_in_target_area(x_vel, y_vel, input)
-        hits += int(res)
+    for x_vel in range(x2 + 1):
+        res, traj = get_trajectory(x_vel, y_vel, input)
 
         if res:
             traj_res = traj
