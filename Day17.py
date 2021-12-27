@@ -1,4 +1,3 @@
-import math
 import time
 
 
@@ -40,7 +39,7 @@ y_vel = y1
 traj_res = []
 valid_traj = set([])
 
-while y_vel <= 100:
+while y_vel <= -y1:
     for x_vel in range(x2 + 1):
         res, traj = get_trajectory(x_vel, y_vel, input)
 
