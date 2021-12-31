@@ -1,12 +1,5 @@
 import time
 
-start_time = time.time()
-
-player_one_start_pos = 4
-player_two_start_pos = 8
-# player_one_pos = 7
-# player_two_pos = 9
-
 
 def move_pawn(pos, dice_sum):
     pos = (pos + dice_sum) % 10 if pos + dice_sum > 10 else pos + dice_sum
@@ -46,7 +39,15 @@ def play_easy(player_one_pos, player_two_pos):
     return dice_rolls * player_two_score if player_one_score >= 1000 else dice_rolls * player_one_score
 
 
+start_time = time.time()
+
+# player_one_start_pos = 4
+# player_two_start_pos = 8
+player_one_start_pos = 7
+player_two_start_pos = 9
+
 part_one_res = play_easy(player_one_start_pos, player_two_start_pos)
+assert part_one_res == 679329
 print(f"Part 1: {part_one_res}")
 
 print("--- %s seconds ---" % (time.time() - start_time))
